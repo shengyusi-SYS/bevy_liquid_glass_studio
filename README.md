@@ -8,8 +8,7 @@ Liquid glass for Bevy UI with a shared live backdrop, refraction, blur, and fuse
 
 ## Try it
 
-Use Rust 1.97.1 or newer. On Ubuntu or Debian, install `libasound2-dev`,
-`libwayland-dev`, and `libxkbcommon-dev`. Run the examples from the repository root.
+Use Rust 1.97.1 or newer. Run the examples from the repository root.
 
 ```sh
 cargo run --locked --example ui_panel
@@ -17,7 +16,8 @@ cargo run --locked --example minimal
 ```
 
 The panel lets you import a background, tune the effect, and copy Rust settings.
-On WSLg, use `./examples/preview.sh --locked` for D3D12 through OpenGL and X11.
+On WSLg, `./examples/preview.sh --locked` uses D3D12 through OpenGL and X11
+and enables `ui-debug` for the panel.
 
 ## Use it in an app
 
@@ -32,6 +32,8 @@ bevy_liquid_glass = { git = "https://github.com/shengyusi-SYS/bevy_liquid_glass_
 
 Copy the complete `[patch.crates-io]` section from [Cargo.toml](Cargo.toml)
 into your workspace root so the app and library use the same Bevy source.
+On Ubuntu or Debian, this app configuration needs `pkg-config` and
+`libwayland-dev` to build the Wayland backend.
 
 1. Add `LiquidGlassPlugin` after Bevy's `DefaultPlugins`.
 2. Attach `GlassBackdrop` to the UI camera.
@@ -56,6 +58,7 @@ limits, and coordinate units.
 
 ## Preview debugging
 
+On Ubuntu or Debian, install `pkg-config` and `libasound2-dev` for `ui-debug`.
 Run `cargo run --locked --example ui_panel --features ui-debug` to enable the
 local BRP bridge at `127.0.0.1:15704`. Run
 `python3 examples/ui_debug.py --help` for inspection and screenshot commands.

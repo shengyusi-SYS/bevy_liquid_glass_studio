@@ -8,8 +8,7 @@
 
 ## 运行示例
 
-需要 Rust 1.97.1 或更高版本。Ubuntu 或 Debian 下需安装 `libasound2-dev`、
-`libwayland-dev` 和 `libxkbcommon-dev`。在仓库根目录运行示例。
+需要 Rust 1.97.1 或更高版本。在仓库根目录运行示例。
 
 ```sh
 cargo run --locked --example ui_panel
@@ -17,7 +16,8 @@ cargo run --locked --example minimal
 ```
 
 `ui_panel` 支持导入背景、实时调参和复制 Rust 配置。
-在 WSLg 上，使用 `./examples/preview.sh --locked` 可通过 OpenGL 和 X11 使用 D3D12。
+在 WSLg 上，`./examples/preview.sh --locked` 通过 OpenGL 和 X11 使用 D3D12，
+并为预览面板开启 `ui-debug`。
 
 ## 接入应用
 
@@ -31,7 +31,8 @@ bevy_liquid_glass = { git = "https://github.com/shengyusi-SYS/bevy_liquid_glass_
 ```
 
 将 [Cargo.toml](Cargo.toml) 中的完整 `[patch.crates-io]` 配置复制到工作区根 manifest，
-让应用与库使用同一份 Bevy 源码。
+让应用与库使用同一份 Bevy 源码。在 Ubuntu 或 Debian 上，按这份应用配置编译 Wayland 后端
+需要 `pkg-config` 和 `libwayland-dev`。
 
 1. 在 Bevy 的 `DefaultPlugins` 之后添加 `LiquidGlassPlugin`。
 2. 给 UI 相机添加 `GlassBackdrop`。
@@ -51,6 +52,7 @@ bevy_liquid_glass = { git = "https://github.com/shengyusi-SYS/bevy_liquid_glass_
 
 ## 调试预览
 
+在 Ubuntu 或 Debian 上，开启 `ui-debug` 需要 `pkg-config` 和 `libasound2-dev`。
 运行 `cargo run --locked --example ui_panel --features ui-debug`，
 可在 `127.0.0.1:15704` 启用本地 BRP 调试接口。
 检查状态和截图等命令见 `python3 examples/ui_debug.py --help`。
