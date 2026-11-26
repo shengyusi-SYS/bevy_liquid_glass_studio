@@ -3,7 +3,7 @@ set -euo pipefail
 
 if [[ ${1:-} == -h || ${1:-} == --help ]]; then
     printf 'Usage: %s [ui_panel|minimal] [cargo flags] [-- app flags]\n' "$0"
-    printf 'Defaults: ui_panel, -j2, and ui-debug for ui_panel.\n'
+    printf 'Defaults: ui_panel and -j2. Pass --features ui-debug to debug the panel.\n'
     exit 0
 fi
 
@@ -26,12 +26,9 @@ jobs=(-j2)
 for flag in "${cargo_flags[@]}"; do
     case $flag in -j|-j?*|--jobs|--jobs=*) jobs=() ;; esac
 done
-features=()
-if [[ $example == ui_panel ]]; then features=(--features ui-debug); fi
-
 project_dir=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)
 cd -- "$project_dir"
-command=(cargo run "${jobs[@]}" --example "$example" "${features[@]}" "${cargo_flags[@]}" -- "${app_flags[@]}")
+command=(cargo run "${jobs[@]}" --example "$example" "${cargo_flags[@]}" -- "${app_flags[@]}")
 
 kernel_release=''
 if [[ -r /proc/sys/kernel/osrelease ]]; then kernel_release=$(</proc/sys/kernel/osrelease); fi

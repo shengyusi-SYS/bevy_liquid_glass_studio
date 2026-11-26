@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Inspect and drive ui_panel through its optional Bevy Remote Protocol bridge.
 
-Run `./examples/preview.sh`, then use snapshot/find/settings/set/config,
+Run `./examples/preview.sh --features ui-debug`, then use snapshot/find/settings/set/config,
 move/click/drag/key, image, or capture. Coordinates are logical window pixels; node snapshot
 centers are physical pixels, so divide them by the window's scale_factor.
 `rpc` also exposes Bevy's standard reflected-component methods.

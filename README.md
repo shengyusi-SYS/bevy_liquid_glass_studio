@@ -16,8 +16,7 @@ cargo run --locked --example minimal
 ```
 
 The panel lets you import a background, tune the effect, and copy Rust settings.
-On WSLg, `./examples/preview.sh --locked` uses D3D12 through OpenGL and X11
-and enables `ui-debug` for the panel.
+On WSLg, `./examples/preview.sh --locked` uses D3D12 through OpenGL and X11.
 
 ## Use it in an app
 
@@ -28,12 +27,14 @@ It provides `UiPassSegments` for capturing the backdrop between UI draws.
 [dependencies]
 bevy = { version = "=0.20.1", default-features = false, features = ["bevy_winit", "default_font", "x11", "wayland"] }
 bevy_liquid_glass = { git = "https://github.com/shengyusi-SYS/bevy_liquid_glass_studio.git", tag = "v0.1.0" }
+
+[target.'cfg(target_os = "linux")'.dependencies]
+winit = { version = "0.30", default-features = false, features = ["wayland-dlopen"] }
 ```
 
 Copy the complete `[patch.crates-io]` section from [Cargo.toml](Cargo.toml)
 into your workspace root so the app and library use the same Bevy source.
-On Ubuntu or Debian, this app configuration needs `pkg-config` and
-`libwayland-dev` to build the Wayland backend.
+The Linux `winit` entry loads the system Wayland library at runtime.
 
 1. Add `LiquidGlassPlugin` after Bevy's `DefaultPlugins`.
 2. Attach `GlassBackdrop` to the UI camera.
@@ -60,7 +61,8 @@ limits, and coordinate units.
 
 On Ubuntu or Debian, install `pkg-config` and `libasound2-dev` for `ui-debug`.
 Run `cargo run --locked --example ui_panel --features ui-debug` to enable the
-local BRP bridge at `127.0.0.1:15704`. Run
+local BRP bridge at `127.0.0.1:15704`. On WSLg, pass `--features ui-debug`
+to the launcher. Run
 `python3 examples/ui_debug.py --help` for inspection and screenshot commands.
 
 ## License
