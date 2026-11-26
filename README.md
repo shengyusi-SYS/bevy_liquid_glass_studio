@@ -1,5 +1,7 @@
 # Bevy Liquid Glass
 
+English · [简体中文](README.zh-CN.md)
+
 Liquid glass for Bevy UI with a shared live backdrop, refraction, blur, and fused shapes.
 
 ![Interactive liquid glass preview](docs/images/preview.png)

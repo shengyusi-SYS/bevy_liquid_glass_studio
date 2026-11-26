@@ -15,6 +15,7 @@ include = [
     "/examples/*.sh",
     "/examples/support/*.rs",
     "/README.md",
+    "/README.zh-CN.md",
     "/LICENSE",
     "/NOTICE",
     "/THIRD_PARTY_LICENSES",
