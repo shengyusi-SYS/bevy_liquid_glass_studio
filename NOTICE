@@ -1,0 +1,9 @@
+The glass shading and SDF/color mathematics are adapted from
+Liquid Glass Studio by Charles Yin:
+https://github.com/iyinchao/liquid-glass-studio
+Commit f7b28c36305a862f5cffed3ddd51511cf1204f56 (MIT).
+
+The UI capture integration is adapted from Beverly and its contributors (Apache-2.0):
+https://github.com/AllTheCodeThatVictorWroteInBali/beverly
+Commit 6dce2907bf3edabd5a1e54cb663566dc864686a5.
+See THIRD_PARTY_LICENSES for the corresponding license.

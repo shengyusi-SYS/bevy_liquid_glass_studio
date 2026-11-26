@@ -1,0 +1,69 @@
+[package]
+name = "bevy_liquid_glass"
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.97.1"
+description = "Liquid glass materials and shared live backdrops for Bevy UI"
+license = "MIT AND Apache-2.0"
+repository = "https://github.com/shengyusi-SYS/bevy_liquid_glass_studio"
+readme = "README.md"
+include = [
+    "/src/**/*.rs",
+    "/assets/shaders/*.wesl",
+    "/examples/*.rs",
+    "/examples/*.py",
+    "/examples/*.sh",
+    "/examples/support/*.rs",
+    "/README.md",
+    "/LICENSE",
+    "/NOTICE",
+    "/THIRD_PARTY_LICENSES",
+    "/GLOSSARY.md",
+    "/docs/architecture.md",
+    "/docs/images/preview.png",
+]
+
+[features]
+default = []
+ui-debug = ["bevy/bevy_remote", "bevy/serialize", "bevy/png", "dep:serde_json", "dep:image"]
+
+[dependencies]
+bevy = { version = "=0.20.1", default-features = false, features = [
+    "std", "async_executor", "multi_threaded", "bevy_log", "bevy_asset", "bevy_camera",
+    "bevy_core_pipeline", "bevy_image", "bevy_render", "bevy_shader",
+    "bevy_ui", "bevy_ui_render", "bevy_text", "bevy_picking",
+] }
+serde_json = { version = "1", optional = true }
+image = { version = "0.25", default-features = false, features = ["png"], optional = true }
+
+[dev-dependencies]
+bevy = { version = "=0.20.1", default-features = false, features = [
+    "bevy_winit", "x11", "wayland", "custom_cursor", "bevy_log", "bevy_scene",
+    "bevy_picking", "ui_picking", "default_font", "bevy_feathers", "bevy_ui_widgets",
+    "bevy_input_focus", "system_clipboard", "png", "jpeg", "webp",
+] }
+rfd = "0.17.2"
+bevy_framepace = { version = "0.23.0", default-features = false }
+# WSLg exposes its accelerated D3D12 renderer through native OpenGL.
+bevy_render = { version = "=0.20.1", features = ["gles"] }
+
+[profile.dev]
+opt-level = 1
+
+[profile.dev.package."*"]
+opt-level = 3
+
+# Keep the library and example dependencies on one Bevy source. Consumers apply
+# these overrides in their workspace root to select this fork revision.
+[patch.crates-io]
+bevy = { git = "https://github.com/shengyusi-SYS/bevy.git", rev = "b4b5717b05ee3c8580826ce2514cf47642a8e422" }
+bevy_app = { git = "https://github.com/shengyusi-SYS/bevy.git", rev = "b4b5717b05ee3c8580826ce2514cf47642a8e422" }
+bevy_diagnostic = { git = "https://github.com/shengyusi-SYS/bevy.git", rev = "b4b5717b05ee3c8580826ce2514cf47642a8e422" }
+bevy_ecs = { git = "https://github.com/shengyusi-SYS/bevy.git", rev = "b4b5717b05ee3c8580826ce2514cf47642a8e422" }
+bevy_log = { git = "https://github.com/shengyusi-SYS/bevy.git", rev = "b4b5717b05ee3c8580826ce2514cf47642a8e422" }
+bevy_platform = { git = "https://github.com/shengyusi-SYS/bevy.git", rev = "b4b5717b05ee3c8580826ce2514cf47642a8e422" }
+bevy_reflect = { git = "https://github.com/shengyusi-SYS/bevy.git", rev = "b4b5717b05ee3c8580826ce2514cf47642a8e422" }
+bevy_render = { git = "https://github.com/shengyusi-SYS/bevy.git", rev = "b4b5717b05ee3c8580826ce2514cf47642a8e422" }
+bevy_time = { git = "https://github.com/shengyusi-SYS/bevy.git", rev = "b4b5717b05ee3c8580826ce2514cf47642a8e422" }
+bevy_window = { git = "https://github.com/shengyusi-SYS/bevy.git", rev = "b4b5717b05ee3c8580826ce2514cf47642a8e422" }
+bevy_winit = { git = "https://github.com/shengyusi-SYS/bevy.git", rev = "b4b5717b05ee3c8580826ce2514cf47642a8e422" }
